@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agri Intelligence — Chhattisgarh</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+Devanagari:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --soil: #2C1810;
+    --earth: #5C3D2E;
+    --wheat: #D4A853;
+    --harvest: #E8C170;
+    --leaf: #4A7C59;
+    --sage: #7BAE7F;
+    --sky: #B8D4E8;
+    --paper: #F5F0E8;
+    --ink: #1A1208;
+    --mist: rgba(245,240,232,0.06);
+    --glow: rgba(212,168,83,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--soil);
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(74,124,89,0.2) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(212,168,83,0.15) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 2rem 3rem;
+    border-bottom: 1px solid rgba(212,168,83,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: rgba(44,24,16,0.92);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--leaf), var(--wheat));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--harvest);
+    letter-spacing: -0.02em;
+  }
+
+  .logo-sub {
+    font-size: 0.65rem;
+    color: var(--sage);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .status-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    background: rgba(74,124,89,0.2);
+    border: 1px solid rgba(74,124,89,0.4);
+    border-radius: 100px;
+    font-size: 0.7rem;
+    color: var(--sage);
+    letter-spacing: 0.1em;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--sage);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 5rem 3rem 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--wheat);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--paper);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.4s;
+  }
+
+  .hero-title span {
+    color: var(--harvest);
+    font-style: italic;
+  }
+
+  .hero-desc {
+    font-size: 0.9rem;
+    color: rgba(245,240,232,0.55);
+    line-height: 1.8;
+    max-width: 560px;
+    margin: 0 auto 3rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.6s;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── QUICK ACTIONS ── */
+  .quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.8s;
+  }
+
+  .quick-btn {
+    padding: 0.5rem 1rem;
+    background: var(--mist);
+    border: 1px solid rgba(212,168,83,0.25);
+    border-radius: 100px;
+    color: var(--harvest);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.02em;
+  }
+
+  .quick-btn:hover {
+    background: var(--glow);
+    border-color: var(--wheat);
+    transform: translateY(-1px);
+  }
+
+  /* ── SEARCH BOX ── */
+  .search-container {
+    max-width: 720px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 1s;
+  }
+
+  .search-box {
+    display: flex;
+    gap: 0;
+    background: rgba(245,240,232,0.06);
+    border: 1.5px solid rgba(212,168,83,0.35);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .search-box:focus-within {
+    border-color: var(--wheat);
+    box-shadow: 0 0 0 3px rgba(212,168,83,0.1), 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .search-input {
+    flex: 1;
+    padding: 1.1rem 1.5rem;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    letter-spacing: 0.01em;
+  }
+
+  .search-input::placeholder {
+    color: rgba(245,240,232,0.3);
+  }
+
+  .search-btn {
+    padding: 1rem 1.8rem;
+    background: linear-gradient(135deg, var(--leaf), #3d6b4a);
+    border: none;
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .search-btn:hover {
+    background: linear-gradient(135deg, #5a9468, var(--leaf));
+  }
+
+  .search-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .search-hint {
+    margin-top: 0.8rem;
+    font-size: 0.68rem;
+    color: rgba(245,240,232,0.3);
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── DISTRICT SELECTOR ── */
+  .district-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .district-label {
+    font-size: 0.68rem;
+    color: rgba(245,240,232,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .district-select {
+    padding: 0.4rem 0.8rem;
+    background: var(--mist);
+    border: 1px solid rgba(212,168,83,0.25);
+    border-radius: 6px;
+    color: var(--harvest);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .district-select option {
+    background: var(--soil);
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem;
+  }
+
+  /* ── LOADING ── */
+  .loading {
+    display: none;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+
+  .loading.active { display: block; }
+
+  .loading-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .loading-bar {
+    width: 4px;
+    height: 40px;
+    background: var(--wheat);
+    border-radius: 2px;
+    animation: loadBar 1s ease-in-out infinite;
+    transform-origin: bottom;
+  }
+
+  .loading-bar:nth-child(2) { animation-delay: 0.1s; background: var(--sage); }
+  .loading-bar:nth-child(3) { animation-delay: 0.2s; }
+  .loading-bar:nth-child(4) { animation-delay: 0.3s; background: var(--sage); }
+  .loading-bar:nth-child(5) { animation-delay: 0.4s; }
+
+  @keyframes loadBar {
+    0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+
+  .loading-text {
+    font-size: 0.8rem;
+    color: rgba(245,240,232,0.4);
+    letter-spacing: 0.1em;
+    animation: blink 1.5s ease infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ── RESULTS ── */
+  .results { display: none; }
+  .results.active { display: block; }
+
+  .results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(212,168,83,0.15);
+  }
+
+  .results-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--harvest);
+  }
+
+  .results-meta {
+    font-size: 0.68rem;
+    color: rgba(245,240,232,0.35);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── CARDS GRID ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .card {
+    background: rgba(245,240,232,0.04);
+    border: 1px solid rgba(212,168,83,0.15);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    animation: cardIn 0.4s ease forwards;
+    opacity: 0;
+  }
+
+  .card:hover {
+    background: rgba(245,240,232,0.07);
+    border-color: rgba(212,168,83,0.35);
+    transform: translateY(-2px);
+  }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.1s; }
+  .card:nth-child(3) { animation-delay: 0.15s; }
+  .card:nth-child(4) { animation-delay: 0.2s; }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .card-icon.green { background: rgba(74,124,89,0.25); }
+  .card-icon.gold { background: rgba(212,168,83,0.2); }
+  .card-icon.blue { background: rgba(184,212,232,0.15); }
+  .card-icon.red { background: rgba(180,60,60,0.2); }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--paper);
+    font-weight: 700;
+  }
+
+  .card-subtitle {
+    font-size: 0.65rem;
+    color: rgba(245,240,232,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* ── RISK BADGE ── */
+  .risk-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .risk-high { background: rgba(180,60,60,0.2); color: #e88; border: 1px solid rgba(180,60,60,0.4); }
+  .risk-medium { background: rgba(212,168,83,0.2); color: var(--harvest); border: 1px solid rgba(212,168,83,0.35); }
+  .risk-low { background: rgba(74,124,89,0.2); color: var(--sage); border: 1px solid rgba(74,124,89,0.35); }
+
+  /* ── DATA ROWS ── */
+  .data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(245,240,232,0.05);
+    font-size: 0.78rem;
+  }
+
+  .data-row:last-child { border-bottom: none; }
+
+  .data-key {
+    color: rgba(245,240,232,0.45);
+    letter-spacing: 0.03em;
+  }
+
+  .data-val {
+    color: var(--paper);
+    font-weight: 500;
+    text-align: right;
+    max-width: 60%;
+  }
+
+  .data-val.positive { color: var(--sage); }
+  .data-val.negative { color: #e88; }
+  .data-val.warning { color: var(--harvest); }
+
+  /* ── PRICE TABLE ── */
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75rem;
+  }
+
+  .price-table th {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    color: rgba(245,240,232,0.4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.62rem;
+    font-weight: 400;
+    border-bottom: 1px solid rgba(212,168,83,0.1);
+  }
+
+  .price-table td {
+    padding: 0.65rem 0.75rem;
+    border-bottom: 1px solid rgba(245,240,232,0.04);
+    color: var(--paper);
+  }
+
+  .price-table tr:last-child td { border-bottom: none; }
+
+  .price-table tr:hover td {
+    background: rgba(245,240,232,0.03);
+  }
+
+  .msp-gap {
+    font-size: 0.68rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .msp-gap.below { background: rgba(180,60,60,0.15); color: #e88; }
+  .msp-gap.above { background: rgba(74,124,89,0.15); color: var(--sage); }
+
+  /* ── SCHEMES LIST ── */
+  .scheme-item {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(245,240,232,0.05);
+  }
+
+  .scheme-item:last-child { border-bottom: none; }
+
+  .scheme-name {
+    font-size: 0.82rem;
+    color: var(--harvest);
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+
+  .scheme-benefit {
+    font-size: 0.72rem;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.5;
+    margin-bottom: 0.4rem;
+  }
+
+  .scheme-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .scheme-tag {
+    padding: 0.15rem 0.5rem;
+    background: rgba(212,168,83,0.1);
+    border: 1px solid rgba(212,168,83,0.2);
+    border-radius: 4px;
+    font-size: 0.62rem;
+    color: var(--wheat);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ADVISORY LIST ── */
+  .advisory-item {
+    padding: 0.7rem 0.9rem;
+    background: rgba(245,240,232,0.03);
+    border-left: 2px solid var(--leaf);
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 0.6rem;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: rgba(245,240,232,0.75);
+  }
+
+  /* ── ACTIONS LIST ── */
+  .action-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.6rem 0;
+    font-size: 0.78rem;
+    color: rgba(245,240,232,0.7);
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(245,240,232,0.05);
+  }
+
+  .action-item:last-child { border-bottom: none; }
+
+  .action-num {
+    width: 20px;
+    height: 20px;
+    background: rgba(212,168,83,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    color: var(--wheat);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── FULL JSON VIEW ── */
+  .json-toggle {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .json-toggle-btn {
+    padding: 0.6rem 1.5rem;
+    background: transparent;
+    border: 1px solid rgba(245,240,232,0.15);
+    border-radius: 6px;
+    color: rgba(245,240,232,0.4);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    transition: all 0.2s ease;
+  }
+
+  .json-toggle-btn:hover {
+    border-color: rgba(245,240,232,0.3);
+    color: rgba(245,240,232,0.7);
+  }
+
+  .json-view {
+    display: none;
+    margin-top: 1rem;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(245,240,232,0.08);
+    border-radius: 8px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    font-size: 0.72rem;
+    line-height: 1.7;
+    color: var(--sage);
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .json-view.visible { display: block; }
+
+  /* ── ERROR ── */
+  .error-box {
+    display: none;
+    padding: 2rem;
+    background: rgba(180,60,60,0.1);
+    border: 1px solid rgba(180,60,60,0.3);
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .error-box.active { display: block; }
+  .error-box p { font-size: 0.82rem; color: #e88; line-height: 1.6; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid rgba(212,168,83,0.1);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.68rem;
+    color: rgba(245,240,232,0.25);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    color: rgba(245,240,232,0.25);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--wheat); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    header { padding: 1.2rem 1.5rem; }
+    .hero { padding: 3rem 1.5rem 2rem; }
+    .main { padding: 2rem 1.5rem; }
+    .cards-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; align-items: flex-start; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">🌾</div>
+    <div>
+      <div class="logo-text">Agri Intelligence</div>
+      <div class="logo-sub">Chhattisgarh Rural Data Layer</div>
+    </div>
+  </div>
+  <div class="status-pill">
+    <div class="status-dot"></div>
+    API LIVE
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">Powered by data.gov.in · OpenWeatherMap · ICAR</div>
+  <h1 class="hero-title">
+    Farm intelligence,<br><span>instantly</span>
+  </h1>
+  <p class="hero-desc">
+    Ask anything about Chhattisgarh agriculture — mandi prices, weather advisories, government schemes, crop guidance, or district risk assessments.
+  </p>
+
+  <div class="quick-actions">
+    <button class="quick-btn" onclick="quickQuery('dashboard')">📊 District Dashboard</button>
+    <button class="quick-btn" onclick="quickQuery('prices')">💰 Mandi Prices</button>
+    <button class="quick-btn" onclick="quickQuery('weather')">🌦 Weather Advisory</button>
+    <button class="quick-btn" onclick="quickQuery('schemes')">📋 Govt Schemes</button>
+    <button class="quick-btn" onclick="quickQuery('risk')">⚠️ Distress Risk</button>
+    <button class="quick-btn" onclick="quickQuery('crop')">🌱 Crop Advisory</button>
+  </div>
+
+  <div class="search-container">
+    <div class="search-box">
+      <input
+        type="text"
+        class="search-input"
+        id="queryInput"
+        placeholder="e.g. What is the paddy price in Raipur today?"
+        onkeydown="if(event.key==='Enter') runQuery()"
+      />
+      <button class="search-btn" id="searchBtn" onclick="runQuery()">Query →</button>
+    </div>
+    <div class="district-row">
+      <span class="district-label">District:</span>
+      <select class="district-select" id="districtSelect">
+        <option value="Raipur">Raipur</option>
+        <option value="Bastar" selected>Bastar</option>
+        <option value="Surguja">Surguja</option>
+        <option value="Bilaspur">Bilaspur</option>
+        <option value="Durg">Durg</option>
+        <option value="Rajnandgaon">Rajnandgaon</option>
+        <option value="Korba">Korba</option>
+        <option value="Jagdalpur">Jagdalpur</option>
+        <option value="Kanker">Kanker</option>
+        <option value="Sukma">Sukma</option>
+        <option value="Narayanpur">Narayanpur</option>
+        <option value="Ambikapur">Ambikapur</option>
+        <option value="Dhamtari">Dhamtari</option>
+        <option value="Mahasamund">Mahasamund</option>
+      </select>
+      <span class="district-label" style="margin-left:1rem">Crop:</span>
+      <select class="district-select" id="cropSelect">
+        <option value="paddy">Paddy (Dhan)</option>
+        <option value="maize">Maize (Makka)</option>
+        <option value="soybean">Soybean</option>
+      </select>
+    </div>
+    <p class="search-hint">Press Enter or click Query · All data sourced from Indian government APIs</p>
+  </div>
+</div>
+
+<div class="main">
+  <div class="loading" id="loading">
+    <div class="loading-grid">
+      <div class="loading-bar"></div>
+      <div class="loading-bar"></div>
+      <div class="loading-bar"></div>
+      <div class="loading-bar"></div>
+      <div class="loading-bar"></div>
+    </div>
+    <div class="loading-text" id="loadingText">FETCHING FIELD DATA...</div>
+  </div>
+
+  <div class="error-box" id="errorBox">
+    <p id="errorText">Something went wrong. Please try again.</p>
+  </div>
+
+  <div class="results" id="results"></div>
+</div>
+
+<footer>
+  <div>© 2026 Agri Intelligence · Chhattisgarh, India</div>
+  <div class="footer-links">
+    <a href="/api/tools">API Docs</a>
+    <a href="https://data.gov.in" target="_blank">data.gov.in</a>
+    <a href="https://github.com/amanrsharma00-collab/Agri-Intelligence" target="_blank">GitHub</a>
+  </div>
+</footer>
+
+<script>
+const BASE = '';  // Same origin — Vercel serves both UI and API
+
+const TOOL_MAP = {
+  dashboard: (d, c) => `/api/tools/get_district_dashboard?district=${d}`,
+  prices:    (d, c) => `/api/tools/get_mandi_prices?district=${d}`,
+  weather:   (d, c) => `/api/tools/get_weather_advisory?district=${d}`,
+  schemes:   (d, c) => `/api/tools/get_agri_schemes?farmer_type=small&crop=${c}&district=${d}`,
+  risk:      (d, c) => `/api/tools/assess_distress_risk?district=${d}&crop=${c}&landholding_acres=2.5`,
+  crop:      (d, c) => `/api/tools/get_crop_advisory?crop=${c}&stage=sowing&district=${d}`,
+};
+
+let currentMode = 'dashboard';
+
+function quickQuery(mode) {
+  currentMode = mode;
+  const labels = {
+    dashboard: 'Give me a full agriculture dashboard for this district',
+    prices: 'What are the current mandi prices?',
+    weather: 'What is the weather advisory for farmers today?',
+    schemes: 'What government schemes are available for small farmers?',
+    risk: 'Assess the farmer distress risk in this district',
+    crop: 'Give me crop advisory for the selected crop'
+  };
+  document.getElementById('queryInput').value = labels[mode];
+  runQuery();
+}
+
+async function runQuery() {
+  const district = document.getElementById('districtSelect').value;
+  const crop = document.getElementById('cropSelect').value;
+  const query = document.getElementById('queryInput').value.trim();
+
+  if (!query) return;
+
+  // Detect intent from query text
+  let mode = currentMode;
+  const q = query.toLowerCase();
+  if (q.includes('price') || q.includes('mandi') || q.includes('market')) mode = 'prices';
+  else if (q.includes('weather') || q.includes('rain') || q.includes('irrigat')) mode = 'weather';
+  else if (q.includes('scheme') || q.includes('government') || q.includes('subsid') || q.includes('kisan')) mode = 'schemes';
+  else if (q.includes('risk') || q.includes('distress')) mode = 'risk';
+  else if (q.includes('crop') || q.includes('sow') || q.includes('harvest') || q.includes('paddy') || q.includes('maize')) mode = 'crop';
+  else if (q.includes('dashboard') || q.includes('report') || q.includes('overview')) mode = 'dashboard';
+
+  const url = TOOL_MAP[mode](district, crop);
+
+  showLoading(mode);
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    showResults(data, mode, district);
+  } catch (e) {
+    showError('Could not reach the API. Check your connection or try again.');
+  }
+}
+
+function showLoading(mode) {
+  const texts = {
+    dashboard: 'BUILDING DISTRICT INTELLIGENCE...',
+    prices: 'FETCHING MANDI PRICES...',
+    weather: 'PULLING WEATHER DATA...',
+    schemes: 'MATCHING GOVERNMENT SCHEMES...',
+    risk: 'CALCULATING DISTRESS RISK...',
+    crop: 'LOADING CROP ADVISORY...'
+  };
+  document.getElementById('loading').classList.add('active');
+  document.getElementById('loadingText').textContent = texts[mode] || 'FETCHING DATA...';
+  document.getElementById('results').classList.remove('active');
+  document.getElementById('results').innerHTML = '';
+  document.getElementById('errorBox').classList.remove('active');
+  document.getElementById('searchBtn').disabled = true;
+}
+
+function hideLoading() {
+  document.getElementById('loading').classList.remove('active');
+  document.getElementById('searchBtn').disabled = false;
+}
+
+function showError(msg) {
+  hideLoading();
+  document.getElementById('errorText').textContent = msg;
+  document.getElementById('errorBox').classList.add('active');
+}
+
+function showResults(data, mode, district) {
+  hideLoading();
+  const container = document.getElementById('results');
+  container.classList.add('active');
+
+  let html = `
+    <div class="results-header">
+      <div class="results-title">${district} District — ${modeName(mode)}</div>
+      <div class="results-meta">Generated ${new Date().toLocaleTimeString('en-IN')} · ${data.source || 'Agri Intelligence'}</div>
+    </div>
+    <div class="cards-grid">
+  `;
+
+  if (mode === 'dashboard') html += renderDashboard(data);
+  else if (mode === 'prices') html += renderPrices(data);
+  else if (mode === 'weather') html += renderWeather(data);
+  else if (mode === 'schemes') html += renderSchemes(data);
+  else if (mode === 'risk') html += renderRisk(data);
+  else if (mode === 'crop') html += renderCrop(data);
+
+  html += `</div>
+    <div class="json-toggle">
+      <button class="json-toggle-btn" onclick="toggleJSON()">{ } View Raw JSON</button>
+      <div class="json-view" id="jsonView">${escapeHtml(JSON.stringify(data, null, 2))}</div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+}
+
+function renderDashboard(d) {
+  const risk = d.risk_detail || {};
+  const riskClass = risk.risk_level?.includes('High') ? 'risk-high' : risk.risk_level?.includes('Medium') ? 'risk-medium' : 'risk-low';
+  const fi = d.financial_impact || {};
+  const summary = d.summary || {};
+
+  let html = `
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon red">⚠️</div>
+        <div><div class="card-title">Risk Assessment</div><div class="card-subtitle">Farmer Distress Index</div></div>
+      </div>
+      <div class="risk-badge ${riskClass}">${risk.risk_level || 'Calculating...'}</div>
+      ${row('Rainfall', risk.rainfall_status)}
+      ${row('Price vs MSP', risk.price_situation, 'negative')}
+      ${row('Scheme Access', risk.scheme_access, 'warning')}
+      ${row('Active NGOs', risk.ngo_presence)}
+      ${row('Est. Loss/Acre', fi.estimated_income_loss_per_acre, 'negative')}
+      ${row('Monthly Shortfall', fi.monthly_equivalent, 'negative')}
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon green">📋</div>
+        <div><div class="card-title">Schemes Available</div><div class="card-subtitle">Government Support</div></div>
+      </div>
+      ${row('Total Matched', summary.schemes_available + ' schemes')}
+      ${row('CG-Specific', summary.cg_specific_schemes + ' schemes', 'positive')}
+      <div style="margin-top:1rem">
+        ${(d.top_schemes || []).slice(0,3).map(s => `
+          <div class="scheme-item">
+            <div class="scheme-name">${s.scheme}</div>
+            <div class="scheme-benefit">${s.benefit}</div>
+            <div class="scheme-tags">
+              <span class="scheme-tag">${s.type}</span>
+              ${s.deadline ? `<span class="scheme-tag">📅 ${s.deadline}</span>` : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon gold">💰</div>
+        <div><div class="card-title">Mandi Prices</div><div class="card-subtitle">vs Minimum Support Price</div></div>
+      </div>
+      <table class="price-table">
+        <tr><th>Commodity</th><th>Modal ₹/Q</th><th>vs MSP</th></tr>
+        ${(d.mandi_prices || []).map(p => `
+          <tr>
+            <td>${p.commodity}</td>
+            <td>₹${p.modal_price?.toLocaleString('en-IN')}</td>
+            <td><span class="msp-gap ${p.msp_gap_percent < 0 ? 'below' : 'above'}">${p.msp_gap_percent}%</span></td>
+          </tr>
+        `).join('')}
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon blue">✅</div>
+        <div><div class="card-title">Priority Actions</div><div class="card-subtitle">Do This Now</div></div>
+      </div>
+      ${(d.priority_actions || []).map((a, i) => `
+        <div class="action-item">
+          <div class="action-num">${i+1}</div>
+          <div>${a}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  return html;
+}
+
+function renderPrices(d) {
+  return `
+    <div class="card" style="grid-column: 1/-1">
+      <div class="card-header">
+        <div class="card-icon gold">💰</div>
+        <div><div class="card-title">Mandi Prices — ${d.state}</div><div class="card-subtitle">${d.date} · ${d.source}</div></div>
+      </div>
+      <table class="price-table">
+        <tr><th>Commodity</th><th>Market</th><th>Min ₹</th><th>Max ₹</th><th>Modal ₹</th><th>MSP ₹</th><th>Gap</th></tr>
+        ${(d.prices || []).map(p => `
+          <tr>
+            <td>${p.commodity}</td>
+            <td>${p.market}</td>
+            <td>${p.min_price?.toLocaleString('en-IN')}</td>
+            <td>${p.max_price?.toLocaleString('en-IN')}</td>
+            <td><strong>₹${p.modal_price?.toLocaleString('en-IN')}</strong></td>
+            <td>₹${p.msp_2024?.toLocaleString('en-IN')}</td>
+            <td><span class="msp-gap ${p.msp_gap_percent < 0 ? 'below' : 'above'}">${p.msp_gap_percent}%</span></td>
+          </tr>
+        `).join('')}
+      </table>
+      ${d.insight ? `<div class="advisory-item" style="margin-top:1rem">${d.insight}</div>` : ''}
+    </div>
+  `;
+}
+
+function renderWeather(d) {
+  const w = d.weather || {};
+  const adv = d.agricultural_advisory || {};
+  const advItems = typeof adv === 'object' && !Array.isArray(adv) ? Object.values(adv) : adv;
+  return `
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon blue">🌦</div>
+        <div><div class="card-title">Current Conditions</div><div class="card-subtitle">${d.district} · ${d.date}</div></div>
+      </div>
+      ${row('Temperature', w.temperature_c + '°C', w.temperature_c > 35 ? 'negative' : w.temperature_c > 30 ? 'warning' : 'positive')}
+      ${row('Humidity', w.humidity_percent + '%')}
+      ${row('Rainfall (24h)', (w.rainfall_mm_24h || 0) + ' mm')}
+      ${row('Wind', (w.wind_speed_kmh || '') + ' km/h')}
+      ${row('Condition', w.condition)}
+      ${d.monsoon_arrival_estimate ? row('Monsoon Est.', d.monsoon_arrival_estimate, 'positive') : ''}
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon green">🌱</div>
+        <div><div class="card-title">Agricultural Advisory</div><div class="card-subtitle">Action Required</div></div>
+      </div>
+      ${advItems.map(a => `<div class="advisory-item">${a}</div>`).join('')}
+      ${d.weekly_forecast_summary ? `<div style="margin-top:1rem; font-size:0.75rem; color:rgba(245,240,232,0.45)">${d.weekly_forecast_summary}</div>` : ''}
+    </div>
+  `;
+}
+
+function renderSchemes(d) {
+  return `
+    <div class="card" style="grid-column:1/-1">
+      <div class="card-header">
+        <div class="card-icon green">📋</div>
+        <div>
+          <div class="card-title">${d.total_schemes_matched} Schemes Matched</div>
+          <div class="card-subtitle">${d.chhattisgarh_specific_schemes} CG-specific · ${d.farmer_profile?.type} farmer · ${d.farmer_profile?.primary_crop}</div>
+        </div>
+      </div>
+      <div class="advisory-item" style="margin-bottom:1rem">${d.priority_action}</div>
+      ${(d.schemes || []).map(s => `
+        <div class="scheme-item">
+          <div class="scheme-name">${s.scheme}</div>
+          <div class="scheme-benefit">${s.benefit}</div>
+          <div style="font-size:0.72rem; color:rgba(245,240,232,0.45); margin:0.3rem 0">${s.how_to_apply || ''}</div>
+          <div class="scheme-tags">
+            <span class="scheme-tag">${s.type}</span>
+            ${s.deadline ? `<span class="scheme-tag">📅 ${s.deadline}</span>` : ''}
+            ${s.helpline ? `<span class="scheme-tag">📞 ${s.helpline}</span>` : ''}
+            ${s.chhattisgarh_specific ? `<span class="scheme-tag" style="border-color:var(--sage);color:var(--sage)">CG Specific</span>` : ''}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderRisk(d) {
+  const risk = d.risk_assessment || {};
+  const fi = d.financial_impact || {};
+  const riskClass = risk.risk_level?.includes('High') ? 'risk-high' : risk.risk_level?.includes('Medium') ? 'risk-medium' : 'risk-low';
+  return `
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon red">⚠️</div>
+        <div><div class="card-title">Distress Risk</div><div class="card-subtitle">${d.district} · ${d.crop} · ${d.landholding_acres} acres</div></div>
+      </div>
+      <div class="risk-badge ${riskClass}">${risk.risk_level}</div>
+      ${row('Risk Score', risk.risk_score + '/100', risk.risk_score > 65 ? 'negative' : risk.risk_score > 35 ? 'warning' : 'positive')}
+      ${row('Rainfall', risk.rainfall_status, 'warning')}
+      ${row('Price vs MSP', risk.price_situation, 'negative')}
+      ${row('Scheme Access', risk.scheme_access, 'warning')}
+      ${row('NGO Presence', risk.ngo_presence)}
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon gold">💸</div>
+        <div><div class="card-title">Financial Impact</div><div class="card-subtitle">Estimated Income Loss</div></div>
+      </div>
+      ${row('Loss per Acre', fi.estimated_income_loss_per_acre, 'negative')}
+      ${row('Total Loss', fi.total_estimated_loss, 'negative')}
+      ${row('Monthly Shortfall', fi.monthly_equivalent, 'negative')}
+      <div style="margin-top:1.5rem">
+        <div class="card-subtitle" style="margin-bottom:0.8rem">IMMEDIATE ACTIONS</div>
+        ${(d.immediate_actions || []).map((a, i) => `
+          <div class="action-item">
+            <div class="action-num">${i+1}</div>
+            <div>${a}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderCrop(d) {
+  const adv = d.advisory || {};
+  return `
+    <div class="card" style="grid-column:1/-1">
+      <div class="card-header">
+        <div class="card-icon green">🌱</div>
+        <div>
+          <div class="card-title">${d.crop?.charAt(0).toUpperCase() + d.crop?.slice(1)} — ${d.stage?.charAt(0).toUpperCase() + d.stage?.slice(1)} Advisory</div>
+          <div class="card-subtitle">${d.local_name} · ${d.district} · ${d.cg_importance}</div>
+        </div>
+      </div>
+      ${adv.timing ? row('Timing', adv.timing) : ''}
+      ${adv.seed_rate ? row('Seed Rate', adv.seed_rate) : ''}
+      ${adv.fertiliser ? row('Fertiliser', adv.fertiliser) : ''}
+      ${adv.soil_prep ? row('Soil Prep', adv.soil_prep) : ''}
+      ${adv.irrigation ? row('Irrigation', adv.irrigation) : ''}
+      ${adv.msp_2024 ? row('MSP 2024', adv.msp_2024, 'positive') : ''}
+      ${adv.varieties_recommended ? `
+        <div class="data-row">
+          <span class="data-key">Varieties</span>
+          <span class="data-val">${adv.varieties_recommended?.join(', ')}</span>
+        </div>` : ''}
+      ${adv.pest_watch ? `
+        <div class="data-row">
+          <span class="data-key">Pest Watch</span>
+          <span class="data-val warning">${adv.pest_watch?.join(' · ')}</span>
+        </div>` : ''}
+      ${adv.tip ? `<div class="advisory-item" style="margin-top:1rem">💡 ${adv.tip}</div>` : ''}
+      ${adv.selling_tip ? `<div class="advisory-item" style="margin-top:0.5rem; border-left-color:var(--wheat)">📦 ${adv.selling_tip}</div>` : ''}
+      <div style="margin-top:1rem; font-size:0.68rem; color:rgba(245,240,232,0.3)">${d.source}</div>
+    </div>
+  `;
+}
+
+function row(key, val, cls = '') {
+  if (!val) return '';
+  return `<div class="data-row"><span class="data-key">${key}</span><span class="data-val ${cls}">${val}</span></div>`;
+}
+
+function modeName(mode) {
+  const n = { dashboard:'Full Dashboard', prices:'Mandi Prices', weather:'Weather Advisory', schemes:'Government Schemes', risk:'Distress Risk', crop:'Crop Advisory' };
+  return n[mode] || mode;
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function toggleJSON() {
+  document.getElementById('jsonView').classList.toggle('visible');
+}
+
+// Auto-load dashboard on page load
+window.addEventListener('load', () => {
+  setTimeout(() => quickQuery('dashboard'), 600);
+});
+</script>
+</body>
+</html>
